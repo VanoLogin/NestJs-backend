@@ -1,0 +1,14 @@
+{
+  "type": "postgres",
+  "url": "process.env.DATABASE_URL",
+  "ssl": {
+    "rejectUnauthorized": false
+  },
+  "synchronize": false,
+  "logging": true,
+  "entities": ["src/db/models/**/*.entity{.ts,.js}"],
+  "migrations": ["src/migrations/**/*{.ts,.js}"],
+  "cli": {
+    "migrationsDir": "src/migrations"
+  }
+}
