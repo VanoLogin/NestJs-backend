@@ -80,4 +80,10 @@ export class AuthService {
       refreshToken: refreshToken,
     });
   }
+
+  async googleLogin(req: Request) {
+    if (!req.user) {
+      throw new NotFoundException("In request we don't have a user");
+    }
+  }
 }

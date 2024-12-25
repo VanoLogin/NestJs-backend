@@ -7,6 +7,7 @@ import {
   UseFilters,
   UseInterceptors,
   BadRequestException,
+  Get,
 } from "@nestjs/common";
 import { validate as isUuid } from "uuid";
 
@@ -19,6 +20,8 @@ import { AuthenticatedRequest } from "src/interfaces/authenticated-request.inter
 import { QueryExceptionFilter } from "src/filters/postQuery-exceptions";
 import { ResponseInterceptor } from "src/interceptors/response.interceptor";
 import { AllExceptionsFilter } from "src/filters/all-exceptions.filter";
+import { AuthGuard } from "@nestjs/passport";
+import { todo } from "node:test";
 
 @Controller("auth")
 @UseFilters(AllExceptionsFilter) // выбрасывает ошибки
@@ -62,7 +65,7 @@ export class AuthController {
 
     // Устанавливаем cookies через утилиту
     setupSession(res, session);
-
+    //TODO: make auth with google
     // Отправляем ответ с accessToken
     res.status(200).json({
       status: 200,
@@ -84,5 +87,15 @@ export class AuthController {
       message: "Successfully logged out user!",
       data: [],
     });
+  }
+
+  @Get()
+  @UseGuards(AuthGuard("google"))
+  async googleAuth(@Req() req) {}
+
+  @Get("google/callback")
+  @UseGuards(AuthGuard("google"))
+  async googleAuthCallback(@Req() req, @Res() res) {
+    return this.authService.googleLogin(req);
   }
 }
