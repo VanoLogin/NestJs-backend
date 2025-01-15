@@ -21,7 +21,6 @@ import { QueryExceptionFilter } from "src/filters/postQuery-exceptions";
 import { ResponseInterceptor } from "src/interceptors/response.interceptor";
 import { AllExceptionsFilter } from "src/filters/all-exceptions.filter";
 import { AuthGuard } from "@nestjs/passport";
-import { todo } from "node:test";
 
 @Controller("auth")
 @UseFilters(AllExceptionsFilter) // выбрасывает ошибки
